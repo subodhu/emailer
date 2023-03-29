@@ -1,5 +1,6 @@
 from django_filters import rest_framework as filters
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
+from rest_framework.mixins import (CreateModelMixin, ListModelMixin,
+                                   RetrieveModelMixin)
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
@@ -10,6 +11,12 @@ from .serializers import EmailSerializer, EmailTemplateSerializer
 
 
 class EmailTemplateViewSet(ModelViewSet):
+    """
+    Viewset to create/update/list/and delete email templates.
+    Only admin user can create/updae and delete the templates.
+    Normal users can only view the email templates.
+    """
+
     queryset = EmailTemplate.objects.all()
     serializer_class = EmailTemplateSerializer
 
