@@ -210,3 +210,5 @@ SPECTACULAR_SETTINGS = {
 CORS_URLS_REGEX = r"^/api/.*$"
 
 SITE_ID = 1
+
+FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
