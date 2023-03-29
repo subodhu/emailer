@@ -26,7 +26,7 @@ def task_send_emails(self, email_id):
             Q(sent_date__isnull=True) | Q(failed_count=1)
         )
         now = timezone.now()
-        today = now.today()
+        today = now.date()
         email_sent_list = []
         failed_list = []
         template = Template(email.template.template)
@@ -66,7 +66,7 @@ def task_send_emails(self, email_id):
                 else:
                     # sent is 1 on success else 0
                     if sent:
-                        recipient.sent_date = today
+                        recipient.sent_date = now
                         email_sent_list.append(recipient)
                     else:
                         recipient.failed_count += 1
