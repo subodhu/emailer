@@ -1,7 +1,7 @@
 from django_filters import rest_framework as filters
-from rest_framework.mixins import (CreateModelMixin, ListModelMixin,
-                                   RetrieveModelMixin)
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from apps.emails.models import Email, EmailTemplate
@@ -39,6 +39,8 @@ class EmailViewSet(
     serializer_class = EmailSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = EmailFilter
+    throttle_classes = (ScopedRateThrottle,)
+    throttle_scope = "send_email"
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)

@@ -191,6 +191,9 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
+    "DEFAULT_THROTTLE_RATES": {
+        "send_email": "20/minute",
+    },
 }
 
 
@@ -204,7 +207,6 @@ SPECTACULAR_SETTINGS = {
         "persistAuthorization": True,
         "displayOperationId": True,
     },
-    # "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
 
 CORS_URLS_REGEX = r"^/api/.*$"
@@ -212,3 +214,10 @@ CORS_URLS_REGEX = r"^/api/.*$"
 SITE_ID = 1
 
 FIXTURE_DIRS = (str(BASE_DIR / "fixtures"),)
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
