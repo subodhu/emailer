@@ -43,7 +43,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "django_celery_results",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "drf_spectacular",
+    "django_filters",
     "apps.users",
     "apps.emails",
 ]
@@ -174,3 +180,33 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_TASK_SEND_SENT_EVENT = True
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        # "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
+}
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "emailer API",
+    "DESCRIPTION": "Documentation of API endpoints of emailer",
+    "VERSION": "1.0.0",
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "persistAuthorization": True,
+        "displayOperationId": True,
+    },
+    # "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+}
+
+CORS_URLS_REGEX = r"^/api/.*$"
+
+SITE_ID = 1

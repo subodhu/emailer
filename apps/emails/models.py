@@ -40,6 +40,8 @@ class Email(TimestampAbstractModel):
         on_delete=models.CASCADE,
         related_name="created_emails",
     )
+    # if send time is null then email is sent at soon as it is created
+    send_time = models.DateTimeField(blank=True, null=True)
     updated_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -61,8 +63,9 @@ class EmailRecipient(TimestampAbstractModel):
         Email, related_name="email_recipients", on_delete=models.CASCADE
     )
     recipient_email = models.EmailField(_("recipient email"))
-    sent_date = models.DateTimeField(_("email sent date"), auto_now_add=True)
+    sent_date = models.DateTimeField(_("email sent date"), blank=True, null=True)
     read_date = models.DateTimeField(_("email read date"), blank=True, null=True)
+    failed_count = models.IntegerField(default=0)
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

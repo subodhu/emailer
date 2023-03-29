@@ -4,3 +4,8 @@ psycopg2==2.9.5
 celery==5.2.7
 uvicorn[standard]==0.20.0
 django-celery-results==2.5.0
+djangorestframework==3.14.0
+django-cors-headers==3.14.0
+drf-spectacular==0.26.1
+django-filter==21.1
+Pillow==9.3.0
